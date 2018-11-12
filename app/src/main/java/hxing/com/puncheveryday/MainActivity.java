@@ -31,13 +31,25 @@ public class MainActivity extends BaseActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_punch:
-                    mTextMessage.setText(R.string.title_home);
+                    ActivityUtils.hideFragment(getSupportFragmentManager(),lbsfuc_Fragment);
+                    ActivityUtils.hideFragment(getSupportFragmentManager(),person_Fragment);
+                    if (!createPunchFrag()){
+                        ActivityUtils.showFragment(getSupportFragmentManager(),punch_Fragment);
+                    }
                     return true;
                 case R.id.navigation_lbs:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    ActivityUtils.hideFragment(getSupportFragmentManager(),punch_Fragment);
+                    ActivityUtils.hideFragment(getSupportFragmentManager(),person_Fragment);
+                    if (!createPunchFrag()){
+                        ActivityUtils.showFragment(getSupportFragmentManager(),lbsfuc_Fragment);
+                    }
                     return true;
                 case R.id.navigation_person:
-                    mTextMessage.setText(R.string.title_notifications);
+                    ActivityUtils.hideFragment(getSupportFragmentManager(),lbsfuc_Fragment);
+                    ActivityUtils.hideFragment(getSupportFragmentManager(),punch_Fragment);
+                    if (!createPunchFrag()){
+                        ActivityUtils.showFragment(getSupportFragmentManager(),person_Fragment);
+                    }
                     return true;
             }
             return false;
@@ -51,6 +63,12 @@ public class MainActivity extends BaseActivity {
         mContent_Frgm = findViewById(R.id.home_content_fragment);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        createLbsFrag();
+        createPersonFrag();
+        createPunchFrag();
+        ActivityUtils.hideFragment(getSupportFragmentManager(),lbsfuc_Fragment);
+        ActivityUtils.hideFragment(getSupportFragmentManager(),person_Fragment);
     }
 
     @Override

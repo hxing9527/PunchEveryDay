@@ -83,7 +83,7 @@ public class PunchFragment extends BaseFragment implements PunchConstract.PunchV
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                Toast.makeText(getContext(),"aa" + position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"你点击的是" + position,Toast.LENGTH_SHORT).show();
 
             }
         });

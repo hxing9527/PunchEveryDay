@@ -96,7 +96,7 @@
         android:layout_height="match_parent"
         android:background="#fff"
         android:orientation="vertical"
-        app:calendar_content_view_id="@+id/linerlayout">
+        app:calendar_content_view_id="@+id/recyclerView">
 
         <com.haibin.calendarview.CalendarView
             android:id="@+id/calendarView"
@@ -129,17 +129,13 @@
             app:year_view_month_text_size="20sp"
             app:year_view_scheme_color="#f17706" />
 
-       <LinearLayout
-           android:background="#fff"
-           android:id="@+id/linerlayout"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent">
-           <TextView
-               android:text="今日打卡"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content" />
+      <android.support.v7.widget.RecyclerView
+          android:background="#fff"
+          android:id="@+id/recyclerView"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
 
-       </LinearLayout>
+      </android.support.v7.widget.RecyclerView>
 
     </com.haibin.calendarview.CalendarLayout>
 

@@ -3,6 +3,9 @@ package hxing.com.puncheveryday.punch;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +15,23 @@ import android.widget.Toast;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import hxing.com.puncheveryday.R;
+import hxing.com.puncheveryday.adapter.PunchRecyclerViewListAdapter;
 import hxing.com.puncheveryday.base.BaseFragment;
+import hxing.com.puncheveryday.base.BaseRecyclerAdapter;
+import hxing.com.puncheveryday.bean.Punch;
 
 public class PunchFragment extends BaseFragment implements PunchConstract.PunchView,CalendarView.OnYearChangeListener,CalendarView.OnCalendarSelectListener {
 
     CalendarView mCalendarView;
     TextView mTextYear,mTextLunar,mTextMonthDay,mTextCurrentDay;
     PunchPresenter punchPresenter;
+    RecyclerView recyclerView;
 
     public static PunchFragment newInstance(){
         return new PunchFragment();
@@ -39,13 +48,44 @@ public class PunchFragment extends BaseFragment implements PunchConstract.PunchV
          mTextLunar = (TextView) view.findViewById(R.id.tv_lunar);
          mTextMonthDay = view.findViewById(R.id.tv_month_day);
          mTextCurrentDay = view.findViewById(R.id.tv_current_day);
+         recyclerView = view.findViewById(R.id.recyclerView);
+         view.findViewById(R.id.fl_current).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCalendarView.scrollToCurrent();
+            }
+         });
          mCalendarView.setOnCalendarSelectListener(this);
          mCalendarView.setOnYearChangeListener(this);
          punchPresenter = new PunchPresenter(getContext(),this);
          punchPresenter.getData();
+         init();
          return view;
     }
 
+    private void init(){
+        List<Punch> data = new ArrayList<>();
+        for (int i= 0;i<=20;i++){
+            Punch punch = new Punch();
+            punch.setDate_build("2018-11-13 8:30");
+            punch.setDate_warn("15:00");
+            punch.setId(i);
+            punch.setTitle("日常打卡" + i + " 条");
+            punch.setStatus("0");
+            data.add(punch);
+        }
+
+       PunchRecyclerViewListAdapter adapter = new PunchRecyclerViewListAdapter(getActivity(),data);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                Toast.makeText(getContext(),"aa" + position,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
 
 
     @Override

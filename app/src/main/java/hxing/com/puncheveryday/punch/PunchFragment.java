@@ -84,6 +84,7 @@ public class PunchFragment extends BaseFragment implements PunchConstract.PunchV
             @Override
             public void onItemClick(int position, long itemId) {
                 Toast.makeText(getContext(),"aa" + position,Toast.LENGTH_SHORT).show();
+
             }
         });
 
